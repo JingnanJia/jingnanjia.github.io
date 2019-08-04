@@ -8,100 +8,79 @@ header-img: img/Bloom.jpg
 catalog: true
 tags:
     - Bloom filter
+    - index
 ---
 
 
-## 前言
+## 1.概念
 
-这篇博客九月就想写了，因为赶项目拖了到现在，抓住17年尾巴写吧~
+Bloom filter是一种空间效率很高的数据索引结构，它利用bit数组很简洁地表示一个集合，Bloom filter 的主要用来判断某个或某些元素是否属于某个集合，在判断是否属于某个集合时，有可能会把不属于这个集合的元素误认为属于这个集合（false  positive）。因此，Bloom filter不适合那些“零错误”的应用场合。而在能容忍低错误率的应用场合下，Bloom filter可以通过极少的错误换取存储空间的极大节省。
 
+## 2.原理
 
-## 正文
+结合下图具体来看Bloom filter是如何通过使用位数组表示集合。
+![](img/1.png)
 
-上次看了一篇 [《从一道网易面试题浅谈OC线程安全》](https://www.jianshu.com/p/cec2a41aa0e7) 的博客，主要内容是：
+①：初始状态，此时Bloom filter是一个新建的包含m位的位数组，每一位都置为0。
 
-作者去网易面试，面试官出了一道面试题：下面代码会发生什么问题？
+②：插入状态，为了将包含n个元素的集合S={x1, x2,…,xn}和Bloom filter建立关系，Bloom filter使用k个相互独立的哈希函数（Hash Function）（如图所示，使用了3个函数），k个哈希函数分别将集合中的每个元素映射到{1,…,m}的范围中（例如，对任意一个元素x，第i个哈希函数映射的位置Hashi(x)就会被置为1）。
 
-```objc
-@property (nonatomic, strong) NSString *target;
-//....
-dispatch_queue_t queue = dispatch_queue_create("parallel", DISPATCH_QUEUE_CONCURRENT);
-for (int i = 0; i < 1000000 ; i++) {
-    dispatch_async(queue, ^{
-        self.target = [NSString stringWithFormat:@"ksddkjalkjd%d",i];
-    });
-}
-```
+③：查询状态，通过上述步骤，我们已将集合S={x1, x2,…,xn}和Bloom filter建立起映射关系，接下来就通过查询来判断某个元素是否属于集合S。如上图③所示，我们对待查询的元素y通过k次哈希函数找寻对应的k个bit位，如果k个位置都是1，那么我们就认为y是集合中的元素，否则就认为y不是集合中的元素（上图③中结果所示y1不属于当前集合，y2属于当前集合）。
 
-答案是：会 crash。
+## 3.与生俱来的错误率
 
-我们来看看对`target`属性（`strong`修饰）进行赋值，相当与 MRC 中的
+错误率（false positive rate）：在判定某元素是否属于当前集合时，其结果有两种：属于或者不属于。对于“不属于”的判定结果，我们可以保证其正确性(false negative rate=0)；但是对于“属于”的判定结果，我们无法保证其正确性(false positive rate0)。
 
-```
-- (void)setTarget:(NSString *)target {
-    if (target == _target) return;
-    id pre = _target;
-    [target retain];//1.先保留新值
-    _target = target;//2.再进行赋值
-    [pre release];//3.释放旧值
-}
-```
+错误率形成原因：哈希函数的冲突所致，即属于当前集合的元素a和不属于当前集合的元素通过哈希函数所共享的bit位（即图③中的y2的判定结果是属于当前集合的，但是也可能是误判）。
 
-因为在 *并行队列* `DISPATCH_QUEUE_CONCURRENT` 中*异步* `dispatch_async` 对 `target`属性进行赋值，就会导致 target 已经被 `release`了，还会执行 `release`。这就是向已释放内存对象发送消息而发生 crash 。
+量化错误率：量化错误率是一种估计，属于概率计算，用来评估当前Bloom filter 的质量。首先，Bloom filter具有m的bit位，k个hash函数，带插入集合有n个元素。然后是插入过程中产生错误率，即计算任意一个元素可能被Bloom filter误判的概率。
 
+（1）m位数组中某特定bit位，当一个元素经一次hash处理没有被置为1的概率为（1-1/m），则n个元素经过k次hash函数处理后仍然未被置位的概率：
 
-### 但是
+（2）此特定bit位在n个元素经过k个hash函数处理后被置位为1的概率：
 
-我敲了这段代码，执行的时候发现并不会 crash~
+（3）经过插入阶段，我们可知，某一特定bit位被置为1的概率如上式所示，则在查询阶段，某一个待查询的元素的k个bit位均为1，可判定该元素在当前集合中，但是同时也存在误判的概率（错误率），且误判的概率为：
 
-```C++
-@property (nonatomic, strong) NSString *target;
-dispatch_queue_t queue = dispatch_queue_create("parallel", DISPATCH_QUEUE_CONCURRENT);
-for (int i = 0; i < 1000000 ; i++) {
-    dispatch_async(queue, ^{
-    	// ‘ksddkjalkjd’删除了
-        self.target = [NSString stringWithFormat:@"%d",i];
-    });
-}
-```
+（4）由极限准则可知，可将误判率公式简化为：
 
-原因就出在对 `self.target` 赋值的字符串上。博客的最后也提到了 - *‘上述代码的字符串改短一些，就不会崩溃’*，还有 `Tagged Pointer` 这个东西。
+（5）求误判率最小值的参数，并且从上式可以看出，当m增大或者n减小时，都会使误判率更小：
 
-我们将上面的代码修改下：
+即当k=ln2(m/n)时，此时的误判率最低。此时的Bloom filter的质量最好，优化后的误判率P(error)为：
+
+## 4.存在的问题及解决方法
+
+       问题：Bloom filter作为一种数据索引结构，仅支持插入和查询，不支持删除操作。原因：仍旧是Bloom filter中hash的冲突（有hash函数的地方就一定有冲突的存在）。
+
+       解决方法：目前解决Bloom filter删除问题有很多种方法，比如Bloom filter[1]的变种Counting Bloom filter[2]、d-left Counting Bloom filter[3]，还有cuckoo filter[4]等，所列的这三项工作比较经典（参考文献见文章结尾），当然也有其它的工作，这里就不再进行延申了。
+
+## 5.Bloom filter与其变体的性能对比
+
+       Bloom filter与其变体的性能对比：空间开销、查询性能、是否支持删除。
 
 
-```objc
-NSString *str = [NSString stringWithFormat:@"%d", i];
-NSLog(@"%d, %s, %p", i, object_getClassName(str), str);
-self.target = str;
-```
+## 6.Bloom filter的用法及应用场景
 
-输出：
+        用法：在应用Bloom filter时首先要确定两个参数，（1）即用户决定建立映射关系的元素集合的个数n；（2）用户希望的误判率大小P(error)。由上面我们第三步分析的结果可推导出此时Bloom filter所需bit的大小m：
 
-```
-0, NSTaggedPointerString, 0x3015
-```
 
-发现这个字符串类型是 `NSTaggedPointerString`，那我们来看看 Tagged Pointer 是什么？
+再由满足最小误判率的条件可推导出此时所需的hash函数的个数k：
 
-### Tagged Pointer
 
-Tagged Pointer 详细的内容可以看这里 [深入理解Tagged Pointer](http://www.infoq.com/cn/articles/deep-understanding-of-tagged-pointer)。
+以上，为一个优化的Bloom filter的完整求解过程。
 
-Tagged Pointer 是一个能够提升性能、节省内存的有趣的技术。
+        应用场景：
 
-- Tagged Pointer 专门用来存储小的对象，例如 **NSNumber** 和 **NSDate**（后来可以存储小字符串）
-- Tagged Pointer 指针的值不再是地址了，而是真正的值。所以，实际上它不再是一个对象了，它只是一个披着对象皮的普通变量而已。
-- 它的内存并不存储在堆中，也不需要 malloc 和 free，所以拥有极快的读取和创建速度。
+        Bloom filter属于existence index，作为一种空间高效的数据索引结构，经常被数据库用于测试元素是否是某集合的成员。通常用于测试某些cold storage(例如disk)中是否存在某个元素，以减少cold storage的I/O次数。这里使用Bloom filter来提高查询性能，可以过滤掉一些“不必要的查询操作”，因为cold storage的一次I/O操作的性能开销非常大，（例如disk的一次I/O操作，包括寻道时间、旋转延迟和数据传输等三部分）。
 
 
 
+### 参考文献：
 
-### 参考：
+- [1] B. Bloom, "Space/Time Trade-offs in Hash Coding with Allowable Errors", http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf,  1970.
 
-- [从一道网易面试题浅谈OC线程安全](https://www.jianshu.com/p/cec2a41aa0e7)
+- [2] L. Fan, et. al, "Summary Cache: A Scalable Wide-Area Web Cache Sharing Protocol", http://pages.cs.wisc.edu/~jussara/papers/00ton.pdf, Sep, 1998.
 
-- [深入理解Tagged Pointer](http://www.infoq.com/cn/articles/deep-understanding-of-tagged-pointer)
+- [3] M. Mitzenmacher , et. al, "An Improved Construction for Counting Bloom Filters", http://www.eecs.harvard.edu/~michaelm/postscripts/esa2006b.pdf, 2006.
 
-- [【译】采用Tagged Pointer的字符串](http://www.cocoachina.com/ios/20150918/13449.html)
+- [4] Bin Fan et. al, " Cuckoo Filter: Practically Better Than Bloom", https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf, Dec, 2014.
 
