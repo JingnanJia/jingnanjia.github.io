@@ -51,7 +51,7 @@ overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型�
 
 从实验结果我们可以看出，Learned Bloom filter在fpr允许的大范围内节省了原有Bloom filter占据的内存空间开销（图中的W和E是RNN的参数）。
 
-   >**Learned Bloom filter占用的内存空间 = RNN模型的参数内存大小 + overflow Bloom filter的内存大小**
+> **Space(Learned Bloom filter) = Space(RNN模型) + Space(overflow Bloom filter)**
 
 
 ## 6. 总结
