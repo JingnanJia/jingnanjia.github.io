@@ -72,11 +72,13 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 
 ### 参考文献：
 
-- [1] B. Bloom, "Space/Time Trade-offs in Hash Coding with Allowable Errors", http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf,  1970.
+- [1] B. Bloom, "Space/Time Trade-offs in Hash Coding with Allowable Errors", [http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf,  1970.](http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf)
 
-- [2] L. Fan, et. al, "Summary Cache: A Scalable Wide-Area Web Cache Sharing Protocol", http://pages.cs.wisc.edu/~jussara/papers/00ton.pdf, Sep, 1998.
+- [2] L. Fan, et. al, "Summary Cache: A Scalable Wide-Area Web Cache Sharing Protocol", 
+[http://pages.cs.wisc.edu/~jussara/papers/00ton.pdf, Sep, 1998.](http://pages.cs.wisc.edu/~jussara/papers/00ton.pdf)
 
-- [3] M. Mitzenmacher , et. al, "An Improved Construction for Counting Bloom Filters", http://www.eecs.harvard.edu/~michaelm/postscripts/esa2006b.pdf, 2006.
+- [3] M. Mitzenmacher , et. al, "An Improved Construction for Counting Bloom Filters", [http://www.eecs.harvard.edu/~michaelm/postscripts/esa2006b.pdf, 2006.](http://www.eecs.harvard.edu/~michaelm/postscripts/esa2006b.pdf)
 
-- [4] Bin Fan et. al, " Cuckoo Filter: Practically Better Than Bloom", https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf, Dec, 2014.
+- [4] Bin Fan et. al, " Cuckoo Filter: Practically Better Than Bloom", 
+[https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf, Dec, 2014.](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf)
 
