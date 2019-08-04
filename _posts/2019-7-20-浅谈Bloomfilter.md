@@ -12,11 +12,11 @@ tags:
 ---
 
 
-## 1.概念
+## 1. 概念
 
 Bloom filter是一种空间效率很高的数据索引结构，它利用bit数组很简洁地表示一个集合，Bloom filter 的主要用来判断某个或某些元素是否属于某个集合，在判断是否属于某个集合时，有可能会把不属于这个集合的元素误认为属于这个集合（false positive）。因此，Bloom filter不适合那些“零错误”的应用场合。而在能容忍低错误率的应用场合下，Bloom filter可以通过极少的错误换取存储空间的极大节省。
 
-## 2.原理
+## 2. 原理
 
 结合下图具体来看Bloom filter是如何通过使用位数组表示集合。
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png)
@@ -27,7 +27,7 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 
  **③：查询状态**，通过上述步骤，我们已将集合S={x1, x2,…,xn}和Bloom filter建立起映射关系，接下来就通过查询来判断某个元素是否属于集合S。如上图③所示，我们对待查询的元素y通过k次哈希函数找寻对应的k个bit位，如果k个位置都是1，那么我们就认为y是集合中的元素，否则就认为y不是集合中的元素（上图③中结果所示y1不属于当前集合，y2属于当前集合）。
 
-## 3.与生俱来的错误率
+## 3. 与生俱来的错误率
 
  **错误率（false positive rate）**：在判定某元素是否属于当前集合时，其结果有两种：属于或者不属于。对于“不属于”的判定结果，我们可以保证其正确性(false negative rate=0)；但是对于“属于”的判定结果，我们无法保证其正确性(false positive rate0)。
 
@@ -47,17 +47,17 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/6.png)
 即当k=ln2(m/n)时，此时的误判率最低。此时的Bloom filter的质量最好，优化后的误判率P(error)为：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/7.png)
-## 4.存在的问题及解决方法
+## 4. 存在的问题及解决方法
 
  **问题**：Bloom filter作为一种数据索引结构，仅支持插入和查询，不支持删除操作。原因：仍旧是Bloom filter中hash的冲突（有hash函数的地方就一定有冲突的存在）。
 
  **解决方法**：目前解决Bloom filter删除问题有很多种方法，比如Bloom filter[1]的变种Counting Bloom filter[2]、d-left Counting Bloom filter[3]，还有cuckoo filter[4]等，所列的这三项工作比较经典（参考文献见文章结尾），当然也有其它的工作，这里就不再进行延申了。
 
-## 5.Bloom filter与其变体的性能对比
+## 5. Bloom filter与其变体的性能对比
 
   Bloom filter与其变体的性能对比：空间开销、查询性能、是否支持删除。
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/8.png)
-## 6.Bloom filter的用法及应用场景
+## 6. Bloom filter的用法及应用场景
 
    **用法**：在应用Bloom filter时首先要确定两个参数，（1）即用户决定建立映射关系的元素集合的个数n；（2）用户希望的误判率大小P(error)。由上面我们第三步分析的结果可推导出此时Bloom filter所需bit的大小m：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/9.png)
@@ -72,7 +72,7 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 
 ### 参考文献：
 
-- [1] B. Bloom, "Space/Time Trade-offs in Hash Coding with Allowable Errors", [http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf,  1970.](http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf)
+- [1] B. Bloom, "Space/Time Trade-offs in Hash Coding with Allowable Errors", [http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf, 1970.](http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf)
 
 - [2] L. Fan, et. al, "Summary Cache: A Scalable Wide-Area Web Cache Sharing Protocol", 
 [http://pages.cs.wisc.edu/~jussara/papers/00ton.pdf, Sep, 1998.](http://pages.cs.wisc.edu/~jussara/papers/00ton.pdf)
