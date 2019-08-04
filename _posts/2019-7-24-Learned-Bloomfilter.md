@@ -42,22 +42,19 @@ Bloom filter与二元分类相结合：为了确保学习化的Bloom filter与�
 （2）可设置预期的fpr大小：集合表示Learned Bloom filter训练前的“不属于当前集合”的元素的整体，则我们可以在训练完Model（上图中左半部分）并确定阈值之后计算Model的FPR大小，如下所示：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/12.png)
 overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型的预期误判率设置为FPRp，则必须满足：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/13.png)
 为了简化结果（右边取等号是为了最小化空间开销），我们取：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/14.png)
 则我们可以通过设定阈值来决定整体的预期误判率FPRp（同时也包括决定复合模型的FPR，FPRb）。
 
 ## 5. 实验结果
 
 从实验结果我们可以看出，Learned Bloom filter在fpr允许的大范围内节省了原有Bloom filter占据的内存空间开销（图中的W和E是RNN的参数）。
-
 > **Space(Learned Bloom filter) = Space(RNN模型) + Space(overflow Bloom filter)**
-
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/15.png)
 ## 6. 总结
 
 我们通过以上分析可以看出，Machine Learning现阶段还很难取代传统的数据索引结构，取而代之的是复合型的模型。但是，Bloom filter的一大特点就是性能快，而Learned Bloom filter的查找时间显然要比传统的Bloom filter大上两三个数量级（本人实验已验证），所以文章里也提及了Learned Bloom filter的适用场景，即在用户访问某些例如磁盘时，允许较大的延时。以下为二者之间的性能对比：
-
 
 ### 参考文献：
 
