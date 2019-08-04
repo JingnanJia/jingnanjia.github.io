@@ -49,9 +49,9 @@ overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型�
 
 ## 5. 实验结果
 
-        从实验结果我们可以看出，Learned Bloom filter在fpr允许的大范围内节省了原有Bloom filter占据的内存空间开销（图中的W和E是RNN的参数）。
+从实验结果我们可以看出，Learned Bloom filter在fpr允许的大范围内节省了原有Bloom filter占据的内存空间开销（图中的W和E是RNN的参数）。
 
-        Learned Bloom filter占用的内存空间 = RNN模型的参数内存大小 + overflow Bloom filter的内存大小；
+   >**Learned Bloom filter占用的内存空间 = RNN模型的参数内存大小 + overflow Bloom filter的内存大小**
 
 
 ## 6. 总结
@@ -61,5 +61,6 @@ overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型�
 
 ### 参考文献：
 
-- [1] Kraska et. al, "The Case for Learned Index Structures", [https://dl.acm.org/citation.cfm?id=3196909, 2018.](https://dl.acm.org/citation.cfm?id=3196909)
+- [1] Kraska et. al, "The Case for Learned Index Structures", 
+  [https://dl.acm.org/citation.cfm?id=3196909, 2018.](https://dl.acm.org/citation.cfm?id=3196909)
 
