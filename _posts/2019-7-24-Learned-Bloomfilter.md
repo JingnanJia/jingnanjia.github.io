@@ -16,7 +16,6 @@ tags:
 ## 1. 背景
 
 2018年，谷歌AI部门在SIGMOD会议（数据库领域的顶会）上发表的一篇exploratory research paper，论文名为《The Case for Learned Index Structures》，值得一提的是谷歌AI部门主要负责人Jeffrey Dean挂名其中，使得论文引起学术界和工业界的广泛关注。
-
 **“AI 与计算机系统架构”**
 - Jeff Dean 等人从 2018 年 3 月开始发起 SysML 会议，聚焦于机器学习/深度学习相关的硬件基础设施和计算机系统。那么 AI 到底能够给计算机系统架构带来哪些
 新的机会？“阿里计算平台掌门人”贾扬清认为可以从以下两个方面来看。
