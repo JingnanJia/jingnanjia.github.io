@@ -4,7 +4,7 @@ title:      Learned Bloom filter
 subtitle:   Machine Learning for Bloom filter
 date:       2019-7-24
 author:     Jia
-header-img: img/Bloom.jpg
+header-img: img/learned_index.jpg
 catalog: true
 tags:
     - Bloom filter
