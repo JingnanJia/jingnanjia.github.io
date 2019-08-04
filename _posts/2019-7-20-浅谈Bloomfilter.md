@@ -14,14 +14,12 @@ tags:
 
 ## 1.概念
 
-Bloom filter是一种空间效率很高的数据索引结构，它利用bit数组很简洁地表示一个集合，Bloom filter 的主要用来判断某个或某些元素是否属于某个集合，在判断是否属于某个集合时，有可能会把不属于这个集合的元素误认为属于这个集合（false  positive）。因此，Bloom filter不适合那些“零错误”的应用场合。而在能容忍低错误率的应用场合下，Bloom filter可以通过极少的错误换取存储空间的极大节省。
+Bloom filter是一种空间效率很高的数据索引结构，它利用bit数组很简洁地表示一个集合，Bloom filter 的主要用来判断某个或某些元素是否属于某个集合，在判断是否属于某个集合时，有可能会把不属于这个集合的元素误认为属于这个集合（false positive）。因此，Bloom filter不适合那些“零错误”的应用场合。而在能容忍低错误率的应用场合下，Bloom filter可以通过极少的错误换取存储空间的极大节省。
 
 ## 2.原理
 
 结合下图具体来看Bloom filter是如何通过使用位数组表示集合。
-
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png)
-
 ①：初始状态，此时Bloom filter是一个新建的包含m位的位数组，每一位都置为0。
 
 ②：插入状态，为了将包含n个元素的集合S={x1, x2,…,xn}和Bloom filter建立关系，Bloom filter使用k个相互独立的哈希函数（Hash Function）（如图所示，使用了3个函数），k个哈希函数分别将集合中的每个元素映射到{1,…,m}的范围中（例如，对任意一个元素x，第i个哈希函数映射的位置Hashi(x)就会被置为1）。
@@ -37,17 +35,17 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 量化错误率：量化错误率是一种估计，属于概率计算，用来评估当前Bloom filter 的质量。首先，Bloom filter具有m的bit位，k个hash函数，带插入集合有n个元素。然后是插入过程中产生错误率，即计算任意一个元素可能被Bloom filter误判的概率。
 
 （1）m位数组中某特定bit位，当一个元素经一次hash处理没有被置为1的概率为（1-1/m），则n个元素经过k次hash函数处理后仍然未被置位的概率：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/2.png)
 （2）此特定bit位在n个元素经过k个hash函数处理后被置位为1的概率：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/3.png)
 （3）经过插入阶段，我们可知，某一特定bit位被置为1的概率如上式所示，则在查询阶段，某一个待查询的元素的k个bit位均为1，可判定该元素在当前集合中，但是同时也存在误判的概率（错误率），且误判的概率为：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/3.png)
 （4）由极限准则可知，可将误判率公式简化为：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/5.png)
 （5）求误判率最小值的参数，并且从上式可以看出，当m增大或者n减小时，都会使误判率更小：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/5.png)
 即当k=ln2(m/n)时，此时的误判率最低。此时的Bloom filter的质量最好，优化后的误判率P(error)为：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/2.png)
 ## 4.存在的问题及解决方法
 
        问题：Bloom filter作为一种数据索引结构，仅支持插入和查询，不支持删除操作。原因：仍旧是Bloom filter中hash的冲突（有hash函数的地方就一定有冲突的存在）。
@@ -57,15 +55,15 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 ## 5.Bloom filter与其变体的性能对比
 
        Bloom filter与其变体的性能对比：空间开销、查询性能、是否支持删除。
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/8.png)
 
 ## 6.Bloom filter的用法及应用场景
 
         用法：在应用Bloom filter时首先要确定两个参数，（1）即用户决定建立映射关系的元素集合的个数n；（2）用户希望的误判率大小P(error)。由上面我们第三步分析的结果可推导出此时Bloom filter所需bit的大小m：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/2.png)
 
 再由满足最小误判率的条件可推导出此时所需的hash函数的个数k：
-
+    ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/10.png)
 
 以上，为一个优化的Bloom filter的完整求解过程。
 
