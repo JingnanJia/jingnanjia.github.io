@@ -29,11 +29,11 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 
 ## 3. 与生俱来的错误率
 
- **错误率（false positive rate）**：在判定某元素是否属于当前集合时，其结果有两种：属于或者不属于。对于“不属于”的判定结果，我们可以保证其正确性(false negative rate=0)；但是对于“属于”的判定结果，我们无法保证其正确性(false positive rate0)。
+   **错误率（false positive rate）**：在判定某元素是否属于当前集合时，其结果有两种：属于或者不属于。对于“不属于”的判定结果，我们可以保证其正确性(false negative rate=0)；但是对于“属于”的判定结果，我们无法保证其正确性(false positive rate0)。
 
- **错误率形成原因**：哈希函数的冲突所致，即属于当前集合的元素a和不属于当前集合的元素通过哈希函数所共享的bit位（即图③中的y2的判定结果是属于当前集合的，但是也可能是误判）。
+   **错误率形成原因**：哈希函数的冲突所致，即属于当前集合的元素a和不属于当前集合的元素通过哈希函数所共享的bit位（即图③中的y2的判定结果是属于当前集合的，但是也可能是误判）。
 
- **量化错误率**：量化错误率是一种估计，属于概率计算，用来评估当前Bloom filter 的质量。首先，Bloom filter具有m的bit位，k个hash函数，带插入集合有n个元素。然后是插入过程中产生错误率，即计算任意一个元素可能被Bloom filter误判的概率。
+   **量化错误率**：量化错误率是一种估计，属于概率计算，用来评估当前Bloom filter 的质量。首先，Bloom filter具有m的bit位，k个hash函数，带插入集合有n个元素。然后是插入过程中产生错误率，即计算任意一个元素可能被Bloom filter误判的概率。
 
 （1）m位数组中某特定bit位，当一个元素经一次hash处理没有被置为1的概率为（1-1/m），则n个元素经过k次hash函数处理后仍然未被置位的概率：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/2.png)
@@ -49,9 +49,9 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/7-1.png)
 ## 4. 存在的问题及解决方法
 
- **问题**：Bloom filter作为一种数据索引结构，仅支持插入和查询，不支持删除操作。原因：仍旧是Bloom filter中hash的冲突（有hash函数的地方就一定有冲突的存在）。
+   **问题**：Bloom filter作为一种数据索引结构，仅支持插入和查询，不支持删除操作。原因：仍旧是Bloom filter中hash的冲突（有hash函数的地方就一定有冲突的存在）。
 
- **解决方法**：目前解决Bloom filter删除问题有很多种方法，比如Bloom filter[1]的变种Counting Bloom filter[2]、d-left Counting Bloom filter[3]，还有cuckoo filter[4]等，所列的这三项工作比较经典（参考文献见文章结尾），当然也有其它的工作，这里就不再进行延申了。
+   **解决方法**：目前解决Bloom filter删除问题有很多种方法，比如Bloom filter[1]的变种Counting Bloom filter[2]、d-left Counting Bloom filter[3]，还有cuckoo filter[4]等，所列的这三项工作比较经典（参考文献见文章结尾），当然也有其它的工作，这里就不再进行延申了。
 
 ## 5. Bloom filter与其变体的性能对比
 
@@ -59,14 +59,14 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/8.png)
 ## 6. Bloom filter的用法及应用场景
 
-   **用法**：在应用Bloom filter时首先要确定两个参数，（1）即用户决定建立映射关系的元素集合的个数n；（2）用户希望的误判率大小P(error)。由上面我们第三步分析的结果可推导出此时Bloom filter所需bit的大小m：
+    **用法**：在应用Bloom filter时首先要确定两个参数，（1）即用户决定建立映射关系的元素集合的个数n；（2）用户希望的误判率大小P(error)。由上面我们第三步分析的结果可推导出此时Bloom filter所需bit的大小m：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/9.png)
 再由满足最小误判率的条件可推导出此时所需的hash函数的个数k：
     ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/10.png)
 以上，为一个优化的Bloom filter的完整求解过程。
 
    **应用场景**：
-   Bloom filter属于existence index，作为一种空间高效的数据索引结构，经常被数据库用于测试元素是否是某集合的成员。通常用于测试某些cold storage(例如disk)中是否存在某个元素，以减少cold storage的I/O次数。这里使用Bloom filter来提高查询性能，可以过滤掉一些“不必要的查询操作”，因为cold storage的一次I/O操作的性能开销非常大，（例如disk的一次I/O操作，包括寻道时间、旋转延迟和数据传输等三部分）。
+   Bloom filter属于existence index，作为一种空间高效的数据索引结构，经常被数据库用于测试元素是否是某集合的成员。通常用于测试某些cold storage(例如disk)中是否存在某个元素，以减少cold storage的I/O次数。这里使用Bloom filter来提高查询性能，可以过滤掉一些“不必要的查询操作”，因为cold storage的一次I/O操作的性能开销非常大，（例如disk的一次I/O操作，包括寻道时间、旋转延迟和数据传输等三部分）。
 
 
 
