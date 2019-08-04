@@ -21,6 +21,7 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 结合下图具体来看Bloom filter是如何通过使用位数组表示集合。
 
 <img src="https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png" width = "50px" align=center />
+<img src="https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png" style="zoom:50%" />
 
 ![](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png =50x){:height="50" width="50"}
 
