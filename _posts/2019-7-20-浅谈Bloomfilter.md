@@ -19,12 +19,7 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 ## 2.原理
 
 结合下图具体来看Bloom filter是如何通过使用位数组表示集合。
-
-<img src="https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png" width = "50px" align=center />
 <img src="https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png" style="zoom:50%" />
-
-![](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/1.png =50x){:height="50" width="50"}
-
 ①：初始状态，此时Bloom filter是一个新建的包含m位的位数组，每一位都置为0。
 
 ②：插入状态，为了将包含n个元素的集合S={x1, x2,…,xn}和Bloom filter建立关系，Bloom filter使用k个相互独立的哈希函数（Hash Function）（如图所示，使用了3个函数），k个哈希函数分别将集合中的每个元素映射到{1,…,m}的范围中（例如，对任意一个元素x，第i个哈希函数映射的位置Hashi(x)就会被置为1）。
