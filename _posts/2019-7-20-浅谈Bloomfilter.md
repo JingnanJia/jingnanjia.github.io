@@ -4,7 +4,7 @@ title:      Bloom filter 的概念及原理
 subtitle:   浅谈 Bloom filter
 date:       2019-7-20
 author:     Jia
-header-img: img/Bloom.jpg
+header-img: img/bloom_filter.jpg
 catalog: true
 tags:
     - Bloom filter
