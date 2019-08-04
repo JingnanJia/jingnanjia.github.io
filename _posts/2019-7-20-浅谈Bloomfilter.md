@@ -70,7 +70,7 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 
 
 
-### 参考文献：
+### 参考文献
 
 - [1] B. Bloom, "Space/Time Trade-offs in Hash Coding with Allowable Errors", [http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf, 1970.](http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf)
 
