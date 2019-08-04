@@ -29,17 +29,17 @@ tags:
 
 ## 3. 单一模型
 
-Bloom filter视作二元分类问题：Bloom filter本身是用来判断某个元素是否属于某集合，可以将这个过程视作一个二元概率分类任务。也就是说，可以学习一个模型f(x)，它可以预测待查询的元素是“属于集合”还是“不属于集合”。例如，对于字符串，我们可以训练递归神经网络(RNN)或卷积神经网络(CNN)。但是，对于RNN或者CNN来说，其预测结果必定存在误差，即fpr(false positive rate)0且fnr(false negative rate)0。如此，直接把Bloom filter当作一个二元分类任务进行处理，显然不具有任何意义，因为Bloom filter存在的意义就是fnr=0，使得“不属于”的判定结果为真。
+**Bloom filter视作二元分类问题**：Bloom filter本身是用来判断某个元素是否属于某集合，可以将这个过程视作一个二元概率分类任务。也就是说，可以学习一个模型f(x)，它可以预测待查询的元素是“属于集合”还是“不属于集合”。例如，对于字符串，我们可以训练递归神经网络(RNN)或卷积神经网络(CNN)。但是，对于RNN或者CNN来说，其预测结果必定存在误差，即fpr(false positive rate)0且fnr(false negative rate)0。如此，直接把Bloom filter当作一个二元分类任务进行处理，显然不具有任何意义，因为Bloom filter存在的意义就是fnr=0，使得“不属于”的判定结果为真。
 
 显然，单一模型并不能解决问题！！！
 
 ## 4. 复合模型
 
-Bloom filter与二元分类相结合：为了确保学习化的Bloom filter与标准的Bloom filter具有一样的特性，即①fnr=0；②可设置预期的fpr大小，从而保证Bloom filter索引的质量。因此，文章提出通过设置阈值的方法来保证fnr=0，并且用户可以自定义预期的fpr。
+**Bloom filter与二元分类相结合**：为了确保学习化的Bloom filter与标准的Bloom filter具有一样的特性，即①fnr=0；②可设置预期的fpr大小，从而保证Bloom filter索引的质量。因此，文章提出通过设置阈值的方法来保证fnr=0，并且用户可以自定义预期的fpr。
 
-（1）fnr=0的保证：如下图所示，Model为一个RNN或者CNN模型f(x)，f(x)为模型预测的结果值（f(x)[0,1]）。通过设置阈值，当f(x)时，我们可以认为当前元素key在集合中（允许fpr0）；当f(x)时，我们可以认为当前元素key不在集合中（fnr0，但不被允许），此时我们得到一个元素均满足f(x)的集合K，将集合K映射为一个Bloom filter，我们称之为overflow Bloom filter，当再次查询元素key的f(x)时，我们通过overflow Bloom filter来判定key是否属于集合（如下图右半部分所示，通过overflow Bloom filter判定的结果没有false negative，即fnr=0）。这样的复合模型设计使得fnr=0得到的保证，复合模型命名为Learned Bloom filter。
+**（1）fnr=0的保证**：如下图所示，Model为一个RNN或者CNN模型f(x)，f(x)为模型预测的结果值（f(x)[0,1]）。通过设置阈值，当f(x)时，我们可以认为当前元素key在集合中（允许fpr0）；当f(x)时，我们可以认为当前元素key不在集合中（fnr0，但不被允许），此时我们得到一个元素均满足f(x)的集合K，将集合K映射为一个Bloom filter，我们称之为overflow Bloom filter，当再次查询元素key的f(x)时，我们通过overflow Bloom filter来判定key是否属于集合（如下图右半部分所示，通过overflow Bloom filter判定的结果没有false negative，即fnr=0）。这样的复合模型设计使得fnr=0得到的保证，复合模型命名为Learned Bloom filter。
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/11.png)
-（2）可设置预期的fpr大小：集合表示Learned Bloom filter训练前的“不属于当前集合”的元素的整体，则我们可以在训练完Model（上图中左半部分）并确定阈值之后计算Model的FPR大小，如下所示：
+**（2）可设置预期的fpr大小**：集合表示Learned Bloom filter训练前的“不属于当前集合”的元素的整体，则我们可以在训练完Model（上图中左半部分）并确定阈值之后计算Model的FPR大小，如下所示：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/12.png)
 overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型的预期误判率设置为FPRp，则必须满足：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/13.png)
@@ -56,7 +56,7 @@ overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型�
 ## 6. 总结
 
 我们通过以上分析可以看出，Machine Learning现阶段还很难取代传统的数据索引结构，取而代之的是复合型的模型。但是，Bloom filter的一大特点就是性能快，而Learned Bloom filter的查找时间显然要比传统的Bloom filter大上两三个数量级（本人实验已验证），所以文章里也提及了Learned Bloom filter的适用场景，即在用户访问某些例如磁盘时，允许较大的延时。以下为二者之间的性能对比：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/16.png)
 ### 参考文献：
 
 - [1] Kraska et. al, "The Case for Learned Index Structures", 
