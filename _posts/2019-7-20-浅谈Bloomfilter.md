@@ -46,7 +46,7 @@ Bloom filter是一种空间效率很高的数据索引结构，它利用bit数�
 （5）求误判率最小值的参数，并且从上式可以看出，当m增大或者n减小时，都会使误判率更小：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/6.png)
 即当k=ln2(m/n)时，此时的误判率最低。此时的Bloom filter的质量最好，优化后的误判率P(error)为：
-![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/7.png)
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/7-1.png)
 ## 4. 存在的问题及解决方法
 
  **问题**：Bloom filter作为一种数据索引结构，仅支持插入和查询，不支持删除操作。原因：仍旧是Bloom filter中hash的冲突（有hash函数的地方就一定有冲突的存在）。
