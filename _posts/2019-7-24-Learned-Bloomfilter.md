@@ -18,8 +18,8 @@ tags:
 2018年，谷歌AI部门在SIGMOD会议（数据库领域的顶会）上发表的一篇exploratory research paper，论文名为《The Case for Learned Index Structures》，值得一提的是谷歌AI部门主要负责人Jeffrey Dean挂名其中，使得论文引起学术界和工业界的广泛关注。
 
 >“AI 与计算机系统架构”
-    >Jeff Dean 等人从 2018 年 3 月开始发起 SysML 会议，聚焦于机器学习 / 深度学习相关的硬件基础设施和计算机系统。那么 AI 到底能够给计算机系统架构带来哪些新的机会？“阿里计算平台掌门人”贾扬清认为可以从以下两个方面来看。
->    Jeff Dean 在提到 SysML 的时候，其实提过这样一个概念，就是 Machine  Learning  for  Systems  and  Systems  for   Machine  Learning。今天我们做的更多的是 System for Machine Learning，指的是当机器学习有这样一个需求的时候，我们怎么去构建一个系统来满足它的需求。另一方面，在计算机系统构建的过程中，我们还可以考虑怎么通过机器学习的方法跟数据驱动的方法来优化和设计系统，解决原来系统设计对人的经验的依赖问题，这是 Machine Learning for System 可以解决的事情，不过目前这方面还处于相对比较早期的探索阶段，也是人工智能接下来还需要突破的瓶颈之一。
+    Jeff Dean 等人从 2018 年 3 月开始发起 SysML 会议，聚焦于机器学习 / 深度学习相关的硬件基础设施和计算机系统。那么 AI 到底能够给计算机系统架构带来哪些新的机会？“阿里计算平台掌门人”贾扬清认为可以从以下两个方面来看。
+    Jeff Dean 在提到 SysML 的时候，其实提过这样一个概念，就是 Machine  Learning  for  Systems  and  Systems  for   Machine  Learning。今天我们做的更多的是 System for Machine Learning，指的是当机器学习有这样一个需求的时候，我们怎么去构建一个系统来满足它的需求。另一方面，在计算机系统构建的过程中，我们还可以考虑怎么通过机器学习的方法跟数据驱动的方法来优化和设计系统，解决原来系统设计对人的经验的依赖问题，这是 Machine Learning for System 可以解决的事情，不过目前这方面还处于相对比较早期的探索阶段，也是人工智能接下来还需要突破的瓶颈之一。
 
 好了，言归正传。Learned Index的论文主要讲的是利用Machine Learning优化数据索引结构的性能，如空间性能、时间性能等，即Machine Learning for System 。而本文主要讲的是论文中优化Bloom filter的这部分（想阅读更多的内容见参考文献），利用Machine Learning 降低Bloom filter的空间开销。
 
