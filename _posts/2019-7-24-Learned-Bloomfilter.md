@@ -39,10 +39,8 @@ Bloom filter与二元分类相结合：为了确保学习化的Bloom filter与�
 
 （1）fnr=0的保证：如下图所示，Model为一个RNN或者CNN模型f(x)，f(x)为模型预测的结果值（f(x)[0,1]）。通过设置阈值，当f(x)时，我们可以认为当前元素key在集合中（允许fpr0）；当f(x)时，我们可以认为当前元素key不在集合中（fnr0，但不被允许），此时我们得到一个元素均满足f(x)的集合K，将集合K映射为一个Bloom filter，我们称之为overflow Bloom filter，当再次查询元素key的f(x)时，我们通过overflow Bloom filter来判定key是否属于集合（如下图右半部分所示，通过overflow Bloom filter判定的结果没有false negative，即fnr=0）。这样的复合模型设计使得fnr=0得到的保证，复合模型命名为Learned Bloom filter。
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/11.png)
-
 （2）可设置预期的fpr大小：集合表示Learned Bloom filter训练前的“不属于当前集合”的元素的整体，则我们可以在训练完Model（上图中左半部分）并确定阈值之后计算Model的FPR大小，如下所示：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/12.png)
-
 overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型的预期误判率设置为FPRp，则必须满足：
 
 为了简化结果（右边取等号是为了最小化空间开销），我们取：
@@ -63,5 +61,5 @@ overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型�
 
 ### 参考文献：
 
-- [1] Kraska et. al, "The Case for Learned Index Structures", https://dl.acm.org/citation.cfm?id=3196909,  2018.
+- [1] Kraska et. al, "The Case for Learned Index Structures", [https://dl.acm.org/citation.cfm?id=3196909, 2018.](https://dl.acm.org/citation.cfm?id=3196909)
 
