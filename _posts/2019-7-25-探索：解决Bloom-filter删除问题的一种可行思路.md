@@ -4,7 +4,7 @@ title:      探索：解决Bloom filter删除问题的一种可行思路
 subtitle:   有关Bloom filter不支持删除的问题
 date:       2019-7-25
 author:     Jia
-header-img: img/Bloom.jpg
+header-img: img/Bloom_delete.jpg
 catalog: true
 tags:
     - Bloom filter
