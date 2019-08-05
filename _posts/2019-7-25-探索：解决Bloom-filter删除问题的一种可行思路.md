@@ -1,15 +1,15 @@
 ---
 layout:     post
-title:      Learned Bloom filter
-subtitle:   Machine Learning for Bloom filter
-date:       2019-7-24
+title:      探索：解决Bloom filter删除问题的一种可行思路
+subtitle:   有关Bloom filter不支持删除的问题
+date:       2019-7-25
 author:     Jia
 header-img: img/Bloom.jpg
 catalog: true
 tags:
     - Bloom filter
     - index
-    - Machine Learning
+    - exploratory
 ---
 
 
@@ -50,7 +50,4 @@ tags:
 
 优势：这种插入、删除操作分离的复合结构的好处在于支持高并发，即当处于一个multiple write、multiple read、multiple update的应用当中，可以很好的支持高并发以提高系统性能！
 
-### 参考文献：
-
-- [1] Kraska et. al, "The Case for Learned Index Structures", https://dl.acm.org/citation.cfm?id=3196909,  2018.
-
+***
