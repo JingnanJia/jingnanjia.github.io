@@ -30,17 +30,15 @@ tags:
 基于以上探索，将Bloom filter需要删除的元素插入另一个Bloom filter(我们分别称之为insert Bloom filter，insert Bloom filter)。如下图所示，我们需要建立映射关系的元素插入insert Bloom filter，将需要从集合中删除的元素插入delete Bloom filter，其基本思想是将需要删除的元素转而插入另一个Bloom filter当中。
 
 **插入和删除操作**：insert Bloom filter支持插入操作，delete Bloom filter支持删除操作（其实也是插入操作，相对于insert Bloom filter是删除操作）。
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/31.png)
 **查询操作**：查询操作的演示如下图所示（通过乘法和异或运算得出最终结果）：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/32.png)
 **But！Non false negative无法保证**：将删除元素插入另外一个Bloom filter存在的问题——Non false negative无法保证！例如：当我首先向insert Bloom filter发起写操作时，即插入一个a元素后，这时紧接着发起了查询操作，然后发现delete Bloom filter返回的结果显示元素a已被删除，实际上并未执行过删除操作。产生结果的原因是Bloom filter的hash冲突！！！
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/33.png)
 如下所示，经过进一步的测试分析得知:
 在0~40%的删除范围内，false positive rate几乎保持不变，false negative rate几乎为零；
-
-
 在40%~100%的删除范围内，false positive rate逐渐下降，与此同时false negative rate逐渐上升；
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/34.png)
 
 ## 3. 进一步探索
 
