@@ -2,7 +2,7 @@
 title: Jia's Home
 SEOTitle: 博客 | Jia
 header-img: img/homePage_jia1.jpg
-email: 2256602138@gmail.com
+#email: 2256602138@gmail.com
 description: "Every failure is leading towards success."
 keyword: "Jia, Blog, 博客, jiajingnna, 贾敬楠, system, storage, index"
 url: "http://jingnanjia.github.io"          # your host, for absolute URL
@@ -29,13 +29,13 @@ RSS: false
 permalink: pretty
 paginate: 10
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
-anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+#anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
+# gems: [jekyll-paginate]
 
 
 
@@ -63,7 +63,7 @@ gitalk:
   repo: jingnanjia.github.io    #仓库名称
   owner: jingnanjia    #github用户名
   admin: jingnanjia
-  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+ # distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 
 # 统计
