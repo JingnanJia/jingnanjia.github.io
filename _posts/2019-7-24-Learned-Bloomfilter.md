@@ -36,7 +36,7 @@ tags:
 
 ## 4. 复合模型
 
-**Bloom filter与二元分类相结合**：为了确保学习化的Bloom filter与标准的Bloom filter具有一样的特性，即①fnr=0；②可设置预期的fpr大小，从而保证Bloom filter索引的质量。因此，文章提出通过设置阈值的方法来保证fnr=0，并且用户可以自定义预期的fpr。
+**Bloom filter与二元分类相结合**：为了确保学习化的Bloom filter与标准的Bloom filter具有一样的特性，即(1)fnr=0；(2)可设置预期的fpr大小，从而保证Bloom filter索引的质量。因此，文章提出通过设置阈值的方法来保证fnr=0，并且用户可以自定义预期的fpr。
 
 **（1）fnr=0的保证**：如下图所示，Model为一个RNN或者CNN模型f(x)，f(x)为模型预测的结果值（f(x)[0,1]）。通过设置阈值，当f(x)时，我们可以认为当前元素key在集合中（允许fpr0）；当f(x)时，我们可以认为当前元素key不在集合中（fnr0，但不被允许），此时我们得到一个元素均满足f(x)的集合K，将集合K映射为一个Bloom filter，我们称之为overflow Bloom filter，当再次查询元素key的f(x)时，我们通过overflow Bloom filter来判定key是否属于集合（如下图右半部分所示，通过overflow Bloom filter判定的结果没有false negative，即fnr=0）。这样的复合模型设计使得fnr=0得到的保证，复合模型命名为Learned Bloom filter。
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/11.png)
