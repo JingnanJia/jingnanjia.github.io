@@ -58,8 +58,8 @@ overflow Bloom filter的预期误判率设置为FPRb，则整体的复合模型�
 
 | Filter type | space cost | time ~ per lo0kup | delete support |
 | :----:|:----: | :----: || :----: |
-| Bloom filter | 1 | k | | no |
-| Learned Bloom filter | 0.4x~0.64x | -- | | no |
+| Bloom filter | 1 | k | no |
+| Learned Bloom filter | 0.4x~0.64x | -- | no |
 
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/16.png)
 
