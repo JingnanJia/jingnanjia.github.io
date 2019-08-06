@@ -46,6 +46,6 @@ tags:
 
 ## 4. 带来的好处
 
-优势：这种插入、删除操作分离的复合结构的好处在于支持高并发，即当处于一个multiple write、multiple read、multiple update的应用当中，可以很好的支持高并发以提高系统性能！
+**优势**：这种插入、删除操作分离的复合结构的好处在于支持高并发，即当处于一个multiple write、multiple read、multiple update的应用当中，可以很好的支持高并发以提高系统性能！
 
 ***
