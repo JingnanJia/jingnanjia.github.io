@@ -87,8 +87,8 @@ gitalk:
 
 
 # Progressive Web Apps
-# chrome-tab-theme-color: "#000000"
-# service-worker: true
+ chrome-tab-theme-color: "#000000"
+ service-worker: true
 
 
 
