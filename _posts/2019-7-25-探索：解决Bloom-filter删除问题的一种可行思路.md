@@ -33,7 +33,7 @@ tags:
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/32.png)
 **查询操作**：查询操作的演示如下图所示（通过乘法和异或运算得出最终结果）：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/31.png)
-**But！Non false negative无法保证**：将删除元素插入另外一个Bloom filter存在的问题——Non false negative无法保证！例如：当我首先向insert Bloom filter发起写操作时，即插入一个a元素后，这时紧接着发起了查询操作，然后发现delete Bloom filter返回的结果显示元素a已被删除，实际上并未执行过删除操作。产生结果的原因是Bloom filter的hash冲突！！！
+**But！Non false negative无法保证**：将删除元素插入另外一个Bloom filter存在的问题——Non false negative无法保证！例如：当我首先向insert Bloom filter发起写操作时，即插入一个a元素后，这时紧接着发起了查询操作，然后发现delete Bloom filter返回的结果显示元素a已被删除，实际上并未执行过删除操作。<u>产生结果的原因是Bloom filter的hash冲突！！！</u>
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/33.png)
 如下所示，经过进一步的测试分析得知:
 在0~40%的删除范围内，false positive rate几乎保持不变，false negative rate几乎为零；
