@@ -4,7 +4,7 @@ title:      漫画：Cache Associativity
 subtitle:   简明介绍cache的几种映射方法
 date:       2019-8-9
 author:     Jia
-header-img: img/cache_associativity.jpg
+header-img: img/cache_header.jpg
 catalog: true
 tags:
     - cache
