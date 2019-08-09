@@ -4,7 +4,7 @@ title:      漫画：Cache Associativity
 subtitle:   简明介绍cache的几种映射方法
 date:       2019-8-9
 author:     Jia
-header-img: img/Bloom.jpg
+header-img: img/cache_associativity.jpg
 catalog: true
 tags:
     - cache
@@ -23,7 +23,7 @@ Cache是一种高速缓冲寄存器，是为解决CPU和主存之间读写速度
 ## 2. 漫画：三种映射方式
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/cache_associativity.png)
 
-一个虚拟地址分为三个部分 tag、index、offset。     
+一个虚拟地址分为三个部分 Tag、Index、Offset。     
 
 如上图漫画所示：    
 
