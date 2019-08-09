@@ -33,4 +33,6 @@ Cache是一种高速缓冲寄存器，是为解决CPU和主存之间读写速度
 
 ③offset就是在得到的书中具体找哪一页，那一页就是CPU真正要你去找到的东西。    
 
+### reference
+[1] Cache Associativity: [http://csillustrated.berkeley.edu/PDFs/posters/cache-3-associativity-poster.pdf](http://csillustrated.berkeley.edu/PDFs/posters/cache-3-associativity-poster.pdf)
 ***
