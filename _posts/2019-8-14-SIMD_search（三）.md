@@ -75,7 +75,8 @@ int linear_search_avx (const int *arr, int n, int key) {
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/linear_vs_binary.png)
 结果分析：    
 1. 对于二分搜索，无分支实现比分支实现快得多：延迟快两倍。我认为即使在无分支实现中增加了对非二次幂阵列长度的支持，结果仍然会如此。
-2. 对于使用SIMD优化的线性搜索，在N <= 64时明显更快.    
+2. 对于使用SIMD优化的线性搜索，在N <= 64时明显更快.   
+
 ## 4. Conclusion
 对于长度小的数组，建议使用SIMD优化的Linear_search算法，其明显快于无分支的二分搜索算法binary_search_branchless。而对于更大长度的数组，binary_search_branchless相对更快。SIMD优化的Linear_search仅在少数场景（在已知数组长度非常小且搜索性能非常重要）下值得使用。此外，与Binary_search不同，SIMD优化的Linear_search算法很容易嵌入到一些矢量计算当中。
 
