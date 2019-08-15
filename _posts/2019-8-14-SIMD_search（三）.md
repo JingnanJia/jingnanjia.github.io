@@ -82,3 +82,5 @@ int linear_search_avx (const int *arr, int n, int key) {
 
 ## 4. Conclusion
 对于长度小的数组，建议使用SIMD优化的Linear_search算法，其明显快于无分支的二分搜索算法binary_search_branchless。而对于更大长度的数组，binary_search_branchless相对更快。SIMD优化的Linear_search仅在少数场景（在已知数组长度非常小且搜索性能非常重要）下值得使用。此外，与Binary_search不同，SIMD优化的Linear_search算法很容易嵌入到一些矢量计算当中。
+
+***
