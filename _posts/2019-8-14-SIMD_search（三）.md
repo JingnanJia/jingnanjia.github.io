@@ -4,7 +4,7 @@ title:      探索：Linear_search Practically Better Than Binary_search
 subtitle:   SIMD线性查找算法 
 date:       2019-8-14
 author:     Jia
-header-img: img/SIMD_p.jpg
+header-img: img/linearVSbinary.jpg
 catalog: true
 tags:
     - SIMD
@@ -73,7 +73,7 @@ int linear_search_avx (const int *arr, int n, int key) {
 * linear_search_avx：线性搜索（AVX）
 
 下面是三种算法的latency比较：
-
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/linear_vs_binary.png)
 
 结果分析：
 
