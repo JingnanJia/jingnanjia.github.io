@@ -51,7 +51,7 @@ int linear_search_avx (const int *arr, int n, int key) {
     assert(size_t(arr) % 32 == 0);
     __m256i vkey = _mm256_set1_epi32(key);
     __m256i cnt = _mm256_setzero_si256();
-    for (int i = 0; i < n; i += 16) { //step=16
+    for (int i = 0; i < n; i += 16) {
         __m256i mask0 = _mm256_cmpgt_epi32(vkey, _mm256_load_si256((__m256i *)&arr[i+0]));
         __m256i mask1 = _mm256_cmpgt_epi32(vkey, _mm256_load_si256((__m256i *)&arr[i+8]));
 
@@ -70,6 +70,7 @@ int linear_search_avx (const int *arr, int n, int key) {
 * binary_search_std：直接调用std :: lower_bound
 * binary_search_branchless：无分支二分搜索
 * linear_search_avx：线性搜索（AVX）
+
 下面是三种算法的latency比较：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/linear_vs_binary.png)
 结果分析：    
