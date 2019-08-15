@@ -73,6 +73,7 @@ int linear_search_avx (const int *arr, int n, int key) {
 
 下面是三种算法的latency比较：
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/linear_vs_binary.png)
+
 结果分析：    
 1. 对于二分搜索，无分支实现比分支实现快得多：延迟快两倍。我认为即使在无分支实现中增加了对非二次幂阵列长度的支持，结果仍然会如此。
 2. 对于使用SIMD优化的线性搜索，在N <= 64时明显更快.   
