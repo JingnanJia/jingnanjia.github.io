@@ -36,7 +36,7 @@ tags:
    另外一个很重要的操作是哈希表的调整大小。这里以增大为例，在进行增大操作时，加入原哈希表的上层桶数为N，则分配一个新的2N个桶的数组，将其作为新的上层，原来的上层则作为新的下层，而原来的下层则成为过渡层（图中IL）。此后，需要将过渡层中的所有键值对重新哈希（rehash）到新的上层中。当所有的键值对都被重新哈希到上层之后，可以将过渡层的空间释放掉。哈希表恢复为两层，这个哈希表调整过程结束。在这个调整过程中，被重新哈希的键值约为整个哈希表中键值对总数的1/3，因而这种方法优于传统的调整方法。
 
 ## 2. cuckoo filter
-Cuckoo Filter是Cuckoo Hash的变体，其核心思想是设置每个桶对应4个entry，借助计算指纹的哈希函数，通过两个哈希函数 ，映射出两个候选位置i1和i2。如果两个位置均已有元素，则采取“踢”操作，且cuckoo filter可能会造成无限的循环踢除操作，因此一般程序会设置一个踢除次数的上限（例如，500次），当超过上限后就需要重新resize。所以Cuckoo filter具有以下三点缺点：
+Cuckoo Filter是Cuckoo Hash的变体，其核心思想是设置每个桶对应4个entry，借助计算指纹的哈希函数，通过两个哈希函数 ，映射出两个候选位置i1和i2。如果两个位置均已有元素，则采取“踢”操作，且cuckoo filter可能会造成无限的循环踢除操作，因此一般程序会设置一个踢除次数的上限（例如，500次），当超过上限后就需要重新resize。所以Cuckoo filter具有以下三点缺点(如下图左图所示，有图表示的是踢除操作)：
  * 吞吐量方面具有严重的尾延迟；
  * 存在大量的数据移动操作（踢除操作），即写操作；
  * resize之后，插入吞吐量集中在尾部；
@@ -50,7 +50,7 @@ Cuckoo Filter是Cuckoo Hash的变体，其核心思想是设置每个桶对应4�
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/level(5).png)
 从上图我们可以看出优化过后的level filter的平均插入吞吐量相比较Cuckoo filter提高至1.5 ×~ 1.7×。
 
-查询性能方面，level filter最多查询四个buckets，而Cuckoo filter最多查询两个buckets，为了弥补之间的差距，可以使用SIMD指令进行优化。
+在查询性能方面，level filter最多查询四个buckets，而Cuckoo filter最多查询两个buckets，为了弥补之间的差距，可以使用SIMD指令进行优化。
 
 ### 参考文献：
 - [1] Level hashing: Zuo P, Hua Y, Wu J. Write-optimized and high-performance hashing index scheme for persistent memory[C]//13th {USENIX} Symposium on Operating Systems Design and Implementation ({OSDI} 18). 2018: 461-476.
