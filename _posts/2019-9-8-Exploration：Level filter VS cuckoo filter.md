@@ -46,7 +46,7 @@ Cuckoo Filter是Cuckoo Hash的变体，其核心思想是设置每个桶对应4�
 
    由于level hashing的插入顺序始终是从上层到下层，于是，在插入过程中加入一个负载因子参数，当负载因子达到一定值时（例如，60%）就从下层开始插入，减少上层的遍历过程，大大提高了插入吞吐量。
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/level(1).png)
-## 4. 插入性能比较：Level filter VS. cuckoo filter
+## 4. insert throughtput：Level filter VS. cuckoo filter
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img/level(5).png)
 从上图我们可以看出优化过后的level filter的平均插入吞吐量相比较Cuckoo filter提高至1.5 ×~ 1.7×。
 
