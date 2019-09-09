@@ -4,7 +4,7 @@ title:      Exploration：Level filter VS. cuckoo filter
 subtitle:   Level filter is a variant of level hashing
 date:       2019-9-8
 author:     Jia
-header-img: img/Bloom.jpg
+header-img: img/level_head.jpg
 catalog: true
 tags:
     - level hashing
