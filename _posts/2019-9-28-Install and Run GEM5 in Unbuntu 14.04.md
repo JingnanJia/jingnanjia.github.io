@@ -82,8 +82,7 @@ protoc --version
 sudo apt-get install libprotobuf-dev    
 sudo apt-get install libgoogle-perftools-dev   
 ```
-
-## 2. 运行GEM5
+## 运行GEM5
 
 ### 1. 下载GEM5
 [GEM5稳定版下载地址](http://repo.gem5.org/gem5-stable)，然后解压。
