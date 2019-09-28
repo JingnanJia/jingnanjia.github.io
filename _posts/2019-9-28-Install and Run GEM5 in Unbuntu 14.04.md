@@ -7,9 +7,7 @@ author:     Jia
 header-img: img/linearVSbinary.jpg
 catalog: true
 tags:
-    - SIMD
-    - Search 
-    - exploratory
+    - Gem5
 ---
 
 
