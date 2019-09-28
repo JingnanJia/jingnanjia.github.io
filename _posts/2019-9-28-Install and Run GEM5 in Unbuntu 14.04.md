@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Gem5（一）Install and Run GEM5 in Unbuntu 14.04
-subtitle:   Gem5: install and run 
+subtitle:   Gem5 install and run 
 date:       2019-9-27
 author:     Jia
 header-img: img/linearVSbinary.jpg
