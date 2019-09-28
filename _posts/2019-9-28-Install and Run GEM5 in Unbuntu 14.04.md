@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      探索：Linear_search Practically Better Than Binary_search
-subtitle:   SIMD线性查找算法 
-date:       2019-8-14
+title:      Gem5（一）Install and Run GEM5 in Unbuntu 14.04
+subtitle:   Gem5: install and run 
+date:       2019-9-28
 author:     Jia
 header-img: img/linearVSbinary.jpg
 catalog: true
