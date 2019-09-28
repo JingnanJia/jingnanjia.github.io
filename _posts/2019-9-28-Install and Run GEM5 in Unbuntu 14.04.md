@@ -127,17 +127,17 @@ Exiting @ tick 2924500 because target called exit()
 ### 4. FS测试
 全系统（full system）的模拟比较麻烦，需要下载和配置磁盘镜像。以下以X86系统为例。
 
-#### 1.首先新建一个文件夹用于存储disk image
+**首先新建一个文件夹用于存储**
 ```objc
  mkdir full_system_images
  cd full_system_images
 ```
-#### 2.下载X86的disk image, 并解压
+**2.下载X86的disk image, 并解压**
 ```objc
  wget http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2
  tar jxvf x86-system.tar.bz2
 ```
-#### 3.进入gem5文件夹，修改两个配置文件: SysPaths.py 和 Benckmarks.py
+**进入gem5文件夹，修改两个配置文件: SysPaths.py 和 Benckmarks.py**
 
 打开SysPaths.py配置disk image的完整路径（本文以/home/full_system_images为例）：
 ```objc
@@ -165,7 +165,7 @@ elif buildEnv['TARGET_ISA'] == 'x86':
 elif buildEnv['TARGET_ISA'] == 'x86':
     return env.get('LINUX_IMAGE', disk('linux-x86.img'))
 ```
-#### 4.运行，输入如下命令：
+**4.运行，输入如下命令：**
 ```objc
  ./build/X86/gem5.opt ./configs/example/fs.py
 ```
