@@ -8,8 +8,6 @@ header-img: img/learned_index.jpg
 catalog: true
 tags:
     - Bloom filter
-    - index
-    - Machine Learning
 ---
 
 
