@@ -8,7 +8,6 @@ header-img: img/Bloom_filter.jpg
 catalog: true
 tags:
     - Bloom filter
-    - index
 ---
 
 
