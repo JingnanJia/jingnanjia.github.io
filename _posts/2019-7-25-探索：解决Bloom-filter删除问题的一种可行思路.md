@@ -8,8 +8,6 @@ header-img: img/Bloom_delete.jpg
 catalog: true
 tags:
     - Bloom filter
-    - index
-    - exploratory
 ---
 
 
