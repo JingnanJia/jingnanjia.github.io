@@ -8,8 +8,6 @@ header-img: img/linearVSbinary.jpg
 catalog: true
 tags:
     - SIMD
-    - Search 
-    - exploratory
 ---
 
 ## 1. Background
