@@ -59,7 +59,7 @@ When we insert <k1, v1>: OMH locates *d* candidate buckets through these hash fu
 
 After insertion of main table, each bucket that stores a K-V pair, OMH chooses an adequate FP-hash to computer the fingerprint, then records the index of this FP-hash and the fingerprint of this K. 
 
-[x] How to choose the FP-hash? 
+ - [x] How to choose the FP-hash? 
 OMH will be sequential to find the adequate FP-hash, If and only if the fingerprint of k1 is different from these fingerprints of key in the linked list.
 
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash4.png)
@@ -84,7 +84,7 @@ OMH will be sequential to find the adequate FP-hash, If and only if the fingerpr
 
 
 
-[x] Why the paper use the linked list to record the conflicting keys? 
+ - [x] Why the paper use the linked list to record the conflicting keys? 
 Because it is used to choose FP-hash to avoid collision of fingerprint.
 
 ### (OMH)-deletion
@@ -104,6 +104,7 @@ OMH builds exclusive fingerprints in the fast memory to guide query in the slow 
 1. Strengths:
 - Leveraging the fast-slow hierarchical memories: the access time of fast memory like SRAM is compared negligible to that of slow memory like DRAM.
 - The key idea is to compute multiple fingerprints for a KV pair: choose one so that each KV pair has only one matched fingerprint. 
+
 2. Weakness:
 - Space overhead.
 - Doesn’t discuss fast memory’s size and fingerprint’s size.
