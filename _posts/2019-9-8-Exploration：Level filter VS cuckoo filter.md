@@ -7,8 +7,7 @@ author:     Jia
 header-img: img/level_head.jpg
 catalog: true
 tags:
-    - Level hashing
-    - Cuckoo filter
+    - Hash
     - SIMD
 ---
 
