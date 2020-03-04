@@ -45,9 +45,7 @@ Level hashing needs four memory accesses per query in the worst case.
 
 ### **Goal**
 
-```tex
 The goal of this paper is to design a hash table that requires at most one memory access per query in the worst case, and supports fast incremental update without update failures.
-```
 
 ## 2. One memory hash table (OMH)
 
