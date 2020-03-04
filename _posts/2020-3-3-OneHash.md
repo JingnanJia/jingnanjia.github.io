@@ -14,14 +14,10 @@ tags:
 ## 1. Background
 
 - **Existing hash tables are read-heavy** :
-
-​       Most of the operations to hash tables are queries.
+  Most of the operations to hash tables are queries.
 
 - **Being critical for the worst-case query time to be well-bounded** : 
-
-​       A large number of works have studied how to reduce the number of memory access per query in the worst case.
-
-
+  A large number of works have studied how to reduce the number of memory access per query in the worst case.
 
 ### Existing hash table
 
@@ -46,7 +42,6 @@ Level hashing needs four memory accesses per query in the worst case.
 ### **Goal**
 
 The goal of this paper is to design a hash table that requires at most one memory access per query in the worst case, and supports fast incremental update without update failures.
-
 ## 2. One memory hash table (OMH)
 
 OMH consists of three components: A main table in slow memory 、A fingerprint table in fast memory、 A stash in fast memory。The main table has some sub-tables with hash functions, and fingerprint table has the same structure and size as the main table, the only difference is that in main table, each bucket has a linked list.
@@ -88,9 +83,7 @@ OMH will be sequential to find the adequate FP-hash, If and only if the fingerpr
 Because it is used to choose FP-hash to avoid collision of fingerprint.
 
 ### (OMH)-deletion
-
 To delete a KV pair < kl , v1 >:  OMH first **queries** to find it, and then removes it.
-
 ## Evaluation
 
 ![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash6.png)
