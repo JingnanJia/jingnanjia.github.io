@@ -120,4 +120,4 @@ OMH builds exclusive fingerprints in the fast memory to guide query in the slow 
 
 - The paper just has two pages, it is a poster, from APNet2018, and the author’s homepage says that Full paper in submission to NSDI 2019, but I don’t find it. So I guess it maybe be rejected.
 
-- The author *Tong yang*, is a professor from Peking University. He has a lot of work about the data structure, for example : tree, hash, bloom filter, are mainly used for networking. http://net.pku.edu.cn/~yangtong/
+- The author *Tong yang*, is a professor from Peking University. He has a lot of work about the data structure, for example : tree, hash, bloom filter, are mainly used for networking. [http://net.pku.edu.cn/~yangtong/](http://net.pku.edu.cn/~yangtong/)
