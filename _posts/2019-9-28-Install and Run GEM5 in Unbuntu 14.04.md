@@ -22,7 +22,7 @@ GEM5是一个非常强大的模拟平台，服务于计算机系统架构相关�
 g++一般系统自带，可用g++ -v 查看版本号。
 
 如果系统没有的话，使用如下命令安装：
-```objc
+```bash
 sudo apt-get install g++
 ```
 ### 2. 安装Python
@@ -30,29 +30,29 @@ Python一般系统自带，可用 python --version 查看版本号。
 
 ### 3. 安装Scons
 使用以下命令安装SCons：
-```objc
+```bash
 sudo apt-get install scons
 ```
 安装后查看版本号：
-```objc
+```bash
 scons -v
 ```
 ### 4. 安装SWIG
 [SWIG下载地址](http://swig.org/)，解压后安装：
-```objc
+```bash
 ./configure   
 make    
 sudo make install 
 ```
 安装后查看版本号：
-```objc
+```bash
 swig -version
 ```
 ### 5. 安装zlib
 zlib一般系统自带，使用 whereis zlib 查看安装位置，如果系统没有的话，使用如下步骤安装：
 
 [zlib下载地址](http://www.zlib.net/)，解压后安装：
-```objc
+```bash
 ./configure   
 make    
 sudo make install 
@@ -61,24 +61,24 @@ sudo make install
 一般系统自带，使用 m4 --veriosn 查看版本，如果系统没有的话，使用如下步骤安装：
 
 [m4下载地址](http://www.gnu.org/software/m4/m4.html)，解压后安装：
-```objc
+```bash
 ./configure   
 make    
 sudo make install  
 ```
 ### 7. 安装protobuf
 [protobuf下载地址](https://github.com/protocolbuffers/protobuf)， 解压后安装：
-```objc
+```bash
 ./configure   
 make    
 sudo make install  
 ```
 然后使用如下命令可以查看版本号，检查是否安装完成：
-```objc
+```bash
 protoc --version 
 ```
 ### 8. 安装 libprotobuf-dev 和 libgoogle-perftools-dev
-```objc
+```bash
 sudo apt-get install libprotobuf-dev    
 sudo apt-get install libgoogle-perftools-dev   
 ```
@@ -89,7 +89,7 @@ sudo apt-get install libgoogle-perftools-dev
 
 ### 2. 编译GEM5
 以编译一个RAM处理器为例：
-```objc
+```bash
 scons build/ARM/gem5.opt
 ```
 大约二十多分钟后，编译完成。可以使用多线程提高编译速度，如使用8线程：
@@ -98,11 +98,11 @@ scons build/ARM/gem5.opt -j8
 ```
 ### 3. SE测试
 输入如下命令进行SE测试：
-```objc
+```bash
 ./build/ARM/gem5.opt ./configs/example/se.py -c ./tests/test-progs/hello/bin/arm/linux/hello
 ```
 运行结果如下：
-```objc
+```bash
 root# ./build/ARM/gem5.opt ./configs/example/se.py -c ./tests/test-progs/hello/bin/arm/linux/hello
 gem5 Simulator System.  http://gem5.org
 gem5 is copyrighted software; use the --copyright option for details.
@@ -128,27 +128,27 @@ Exiting @ tick 2924500 because target called exit()
 全系统（full system）的模拟比较麻烦，需要下载和配置磁盘镜像。以下以X86系统为例。
 
 **首先新建一个文件夹用于存储**
-```objc
+```bash
  mkdir full_system_images
  cd full_system_images
 ```
 **下载X86的disk image, 并解压**
-```objc
+```bash
  wget http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2
  tar jxvf x86-system.tar.bz2
 ```
 **进入gem5文件夹，修改两个配置文件: SysPaths.py 和 Benckmarks.py**
 
 打开SysPaths.py配置disk image的完整路径（本文以/home/full_system_images为例）：
-```objc
+```bash
 vim ./configs/common/SysPaths.py
 ```
 修改前：
-```objc
+```python
 path = [ ’/dist/m5/system’, ’/n/poolfs/z/dist/m5/system’ ]
 ```
 修改后：
-```objc
+```python
 path = [ ’/dist/m5/system’, ’/home/full_system_images’ ]
 ```
 打开Benchmarks.py，修改image文件名：
@@ -156,17 +156,17 @@ path = [ ’/dist/m5/system’, ’/home/full_system_images’ ]
 vim ./configs/common/Benchmarks.py
 ```
 修改前：
-```objc
+```python
 elif buildEnv['TARGET_ISA'] == 'x86':
     return env.get('LINUX_IMAGE', disk('x86root.img'))
 ```
 修改后：
-```objc
+```python
 elif buildEnv['TARGET_ISA'] == 'x86':
     return env.get('LINUX_IMAGE', disk('linux-x86.img'))
 ```
 **运行，输入如下命令：**
-```objc
+```bash
  ./build/X86/gem5.opt ./configs/example/fs.py
 ```
 
