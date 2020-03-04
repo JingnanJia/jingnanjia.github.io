@@ -27,7 +27,7 @@ tags:
 
 1. The first kind achieves constant lookup time at the cost of slow update and possibility of update failures.
 
-![image-20200303230233945](C:\Users\JingnanJia\AppData\Roaming\Typora\typora-user-images\image-20200303230233945.png)
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash1.png)
 
 - Cuckoo hashing needs two memory accesses per query in the worst case.
 
@@ -35,7 +35,7 @@ Level hashing needs four memory accesses per query in the worst case.
 
 2. The Second kind of solutions achieve in average around one slow memory access per query by leveraging the fast-slow hierarchical memories.
 
-<img src="C:\Users\JingnanJia\AppData\Roaming\Typora\typora-user-images\image-20200303230408298.png" alt="image-20200303230408298" style="zoom:80%;" />
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash2.png)
 
 - The second kind of solutions focus on using auxiliary data structure (e.g., Bloom filters) in the fast memory to reduce the number of accesses of slow memory.
 
@@ -53,7 +53,7 @@ The goal of this paper is to design a hash table that requires at most one memor
 
 OMH consists of three components: A main table in slow memory 、A fingerprint table in fast memory、 A stash in fast memory。The main table has some sub-tables with hash functions, and fingerprint table has the same structure and size as the main table, the only difference is that in main table, each bucket has a linked list.
 
-<img src="C:\Users\JingnanJia\AppData\Roaming\Typora\typora-user-images\image-20200304130533476.png" alt="image-20200304130533476" style="zoom: 67%;" />
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash3.png)
 
 ### OMH-insertion
 
@@ -65,7 +65,7 @@ After insertion of main table, each bucket that stores a K-V pair, OMH chooses a
 
 OMH will be sequential to find the adequate FP-hash, If and only if the fingerprint of k1 is different from these fingerprints of key in the linked list.
 
-![image-20200304131246454](C:\Users\JingnanJia\AppData\Roaming\Typora\typora-user-images\image-20200304131246454.png)
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash4.png)
 
 ### OMH-query
 
@@ -83,7 +83,7 @@ OMH will be sequential to find the adequate FP-hash, If and only if the fingerpr
 
   Queried K **maybe** exist. *Need one memory access* to check its corresponding bucket in the main table.
 
-![image-20200304131532624](C:\Users\JingnanJia\AppData\Roaming\Typora\typora-user-images\image-20200304131532624.png)
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash5.png)
 
 
 
@@ -97,7 +97,7 @@ To delete a KV pair < kl , v1 >:  OMH first **queries** to find it, and then rem
 
 ## Evaluation
 
-![image-20200304132625920](C:\Users\JingnanJia\AppData\Roaming\Typora\typora-user-images\image-20200304132625920.png)
+![image](https://raw.githubusercontent.com/JingnanJia/jingnanjia.github.io/master/img2/OHash6.png)
 
 As shown in Figure, the paper finds that OMH needs only one Average Memory Access (AMA).
 
